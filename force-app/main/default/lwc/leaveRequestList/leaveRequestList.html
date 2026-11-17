@@ -1,0 +1,21 @@
+
+<template>
+    <lightning-card title="Leave Requests">
+        <div class="slds-p-around_medium">
+
+            <template if:true={errorMessage}>
+                <p class="slds-text-color_error">
+                    {errorMessage}
+                </p>
+            </template>
+
+            <lightning-datatable
+                key-field="Id"
+                data={requests}
+                columns={columns}
+                hide-checkbox-column>
+            </lightning-datatable>
+
+        </div>
+    </lightning-card>
+</template>
