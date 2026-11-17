@@ -1,58 +1,162 @@
-# Salesforce DX Project
+# Salesforce Leave Management System
 
-Salesforce DX is a development approach that brings source-driven development, team collaboration, and continuous integration to the Salesforce Platform. Instead of working directly in an org through a web browser, you work with metadata as source files in a local DX project, track changes in version control, and deploy through automated processes.
+A beginner-friendly Leave Management System built using Salesforce, Apex, and Lightning Web Components (LWC). This project allows employees to submit leave requests and view submitted applications.
 
-This project template gets you started with the tools and structure you need to build Salesforce applications using source control, scratch orgs, and the Salesforce CLI.
+## Project Overview
 
-## Prerequisites
+The Leave Management System is a Salesforce mini-project developed to practice Salesforce administration and development concepts, including custom objects, validation rules, Apex programming, SOQL, and Lightning Web Components.
 
-Before you start, make sure you have:
+## Features
 
-- **Salesforce CLI** - Download from [developer.salesforce.com/tools/salesforcecli](https://developer.salesforce.com/tools/salesforcecli). See [Install Salesforce CLI](https://developer.salesforce.com/docs/atlas.en-us.sfdx_setup.meta/sfdx_setup/sfdx_setup_install_cli.htm) for details.
-- **VS Code with Salesforce Extension Pack** - See [Installation Instructions](https://developer.salesforce.com/docs/platform/sfvscode-extensions/guide/install.html) for details. Includes the Agentforce Vibes extension.
-- **A development org** - Sign up for a free Developer Edition org [here](https://developer.salesforce.com/signup).
-- **Dev Hub enabled** (optional, required to create scratch orgs) - You can enable Dev Hub in your development org under Setup > Dev Hub.  See [Provide Developers Access to Salesforce DX Tools](https://developer.salesforce.com/docs/atlas.en-us.sfdx_dev.meta/sfdx_dev/sfdx_setup_dx_tools.htm).
+- **Leave Application Form:** Employees can submit leave requests through a custom LWC form.
+- **Leave Request List:** Displays submitted leave requests in a table.
+- **Apex Controller:** Handles submitting and retrieving leave request records.
+- **Form Validation:** Ensures required fields are completed.
+- **Date Validation:** Prevents an end date from being earlier than the start date.
+- **Success Notification:** Displays a confirmation message after successful submission.
+- **Salesforce Record Storage:** Stores leave request information in a custom Salesforce object.
+
+## Technologies Used
+
+- Salesforce Platform
+- Apex
+- Lightning Web Components (LWC)
+- JavaScript
+- HTML
+- SOQL
+- Visual Studio Code
+- Salesforce CLI
+- Git & GitHub
+
+## Salesforce Components
+
+### Custom Object
+
+**Object Name:** Leave Request (`Leave_Request__c`)
+
+Fields include:
+
+| Field | API Name | Type |
+|---|---|---|
+| Employee Name | `Employee_Name__c` | Text |
+| Employee Email | `Employee_Email__c` | Email |
+| Start Date | `Start_Date__c` | Date |
+| End Date | `End_Date__c` | Date |
+| Leave Type | `Leave_Type__c` | Picklist |
+| Reason | `Reason__c` | Text Area |
+| Status | `Status__c` | Picklist |
+
+### Apex Class
+
+**Class Name:** `LeaveRequestController`
+
+Methods:
+
+- `getLeaveRequests()` – Retrieves leave request records using SOQL.
+- `submitLeaveRequest()` – Creates and saves a new leave request.
+
+### Lightning Web Components
+
+**1. leaveRequestForm**
+- Collects employee information.
+- Accepts leave details.
+- Validates required fields.
+- Calls Apex to submit the leave request.
+- Displays a success or error notification.
+
+**2. leaveRequestList**
+- Retrieves leave requests from Apex.
+- Displays request number, employee name, leave type, start date, end date, and status in a data table.
 
 ## Project Structure
 
-Your DX project follows this structure:
+```text
+LeaveManagementSystem/
+│
+├── force-app/
+│   └── main/
+│       └── default/
+│           ├── classes/
+│           │   └── LeaveRequestController.cls
+│           │
+│           └── lwc/
+│               ├── leaveRequestForm/
+│               │   ├── leaveRequestForm.html
+│               │   ├── leaveRequestForm.js
+│               │   └── leaveRequestForm.js-meta.xml
+│               │
+│               └── leaveRequestList/
+│                   ├── leaveRequestList.html
+│                   ├── leaveRequestList.js
+│                   └── leaveRequestList.js-meta.xml
+│
+├── config/
+├── scripts/
+├── .gitignore
+├── package.json
+└── sfdx-project.json
+```
 
-- **`force-app/main/default/`** - Your metadata source files live in this default package directory. You can configure additional package directories in the `sfdx-project.json` file.
-- **`config/`** - Scratch org definitions and project settings
-- **`scripts/`** - Automation scripts for common tasks
-- **`sfdx-project.json`** - Project manifest that defines package directories, namespace, API version, and other project-level settings
+## Setup and Installation
 
-See [Salesforce DX Project Configuration](https://developer.salesforce.com/docs/atlas.en-us.sfdx_dev.meta/sfdx_dev/sfdx_dev_ws_config.htm).
+### Prerequisites
 
-## Get Started
+- Salesforce Developer Org
+- Visual Studio Code
+- Salesforce CLI
+- Salesforce Extension Pack for VS Code
+- Git
 
-Ready to start developing? The [Get Started with Salesforce DX](https://developer.salesforce.com/docs/atlas.en-us.sfdx_dev.meta/sfdx_dev/sfdx_dev_get_started_dx.htm) guide walks you through your first project, from creating a scratch org to creating a simple Apex class or LWC to deploying your code to a sandbox.
+### Steps
 
-## Common Salesforce CLI Commands
+**1. Clone the repository**
 
-Here are common CLI commands that you'll use the most:
+```bash
+git clone https://github.com/Omer-Farooq978/Salesforce-Leave-Management-System.git
+```
 
-- `sf org login web`: Authorize an org
-- `sf org open`: Open your org in a browser
-- `sf org create scratch`: Create a scratch org
-- `sf project deploy start`: Deploy metadata to your org
-- `sf project retrieve start`: Retrieve metadata from your org
-- `sf template generate <artifact>`: Scaffold new components, such as Apex classes and triggers, LWC components, Lightning apps, and more
-- `sf apex <command>`: Run Apex tests, run anonymous Apex blocks, and view logs
-- `sf data <command>`: Work with test data
-- `sf alias <command>`: Manage org aliases
-- `sf config <command>`: Configure CLI settings
+**2. Open the project**
 
-## Use Agentforce Vibes to Build Lightning Apps
+```bash
+cd Salesforce-Leave-Management-System
+```
 
-Transform your ideas into custom Lightning apps that extend CRM workflows directly in Lightning Experience. Through natural conversations with Agentforce Vibes, implement custom objects and fields, complex business logic, and dynamic UI components. See [Build a Lightning App Using Agentforce Vibes](https://developer.salesforce.com/docs/platform/einstein-for-devs/guide/lexapp-overview.html).
+**3. Authorize your Salesforce org**
 
-## Additional Resources
+```bash
+sf org login web --alias LeaveOrg --set-default
+```
 
-- [Agentforce Vibes Developer Guide](https://developer.salesforce.com/docs/platform/einstein-for-devs/guide/einstein-overview.html)
-- [Salesforce CLI Installation Guide](https://developer.salesforce.com/docs/atlas.en-us.sfdx_setup.meta/sfdx_setup/sfdx_setup_intro.htm)
-- [Salesforce DX Developer Guide](https://developer.salesforce.com/docs/atlas.en-us.sfdx_dev.meta/sfdx_dev/)
-- [Salesforce CLI Command Reference](https://developer.salesforce.com/docs/atlas.en-us.sfdx_cli_reference.meta/sfdx_cli_reference/)
-- [Salesforce CLI Plugin Development Guide](https://developer.salesforce.com/docs/platform/salesforce-cli-plugin/guide/conceptual-overview.html)
-- [Salesforce VS Code Extensions Documentation](https://developer.salesforce.com/tools/vscode/)
+**4. Deploy the project**
 
+```bash
+sf project deploy start --source-dir force-app/main/default
+```
+
+**5. Configure Salesforce**
+
+Create the Leave Request custom object, fields, and validation rule in your Salesforce org if they are not already configured.
+
+Add the deployed LWC components to a Salesforce Lightning Home Page using Lightning App Builder.
+
+## Learning Outcomes
+
+Through this project, I gained practical experience in:
+
+- Salesforce administration and configuration.
+- Creating custom objects and fields.
+- Writing Apex classes and SOQL queries.
+- Developing Lightning Web Components.
+- Connecting LWC with Apex methods.
+- Working with Salesforce CLI and VS Code.
+- Using Git and GitHub for version control.
+
+## Author
+
+**Omer Farooq**
+
+GitHub: https://github.com/Omer-Farooq978
+
+---
+
+⭐ If you find this project useful, feel free to explore the repository!
